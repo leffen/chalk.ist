@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chalkist
+  namespace: chalkist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chalkist
+  template:
+    metadata:
+      labels:
+        app: chalkist
+    spec:
+      containers:
+        - image: leffen/chalkist:1.0.1
+          name: chalkist
+          ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+      imagePullSecrets:
+        - name: dockerio
